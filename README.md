@@ -1,2 +1,3 @@
-# Stir
-Easy WebGL game engine for javascript
+# StirJS
+
+Easy WebGL game engine for javasScript
