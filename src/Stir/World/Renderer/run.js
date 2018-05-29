@@ -2,11 +2,15 @@
 
 export default function run() {
 
+  if (this.paused) {
+    return;
+  }
+
   // update timer
   this.deltaTimer.update();
 
   // run user custom function
-  this.update();
+  this.f();
   this.updateAnimate();
   this.updateView();
 

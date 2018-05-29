@@ -1,5 +1,7 @@
 'use strict';
 
-export default function tick(f) {
-  this.f = t;
+export default function setUpdate(f) {
+
+  this.f = f.bind(this);
+  
 };

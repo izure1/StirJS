@@ -33,6 +33,11 @@ function getCanvas(q) {
 
 export default function render(canvas, f = function () {}, o = {}) {
 
+  if (this.renderer.gl) {
+    throw 'You already set render function.';
+  }
+
+  
   let gl;
 
   canvas = getCanvas(canvas);
@@ -86,8 +91,8 @@ export default function render(canvas, f = function () {}, o = {}) {
   // init world renderer
   this.renderer.gl = gl;
   this.renderer.world = this;
-  this.renderer.update = f.bind(this.renderer);
 
+  this.renderer.setUpdate(f);
   this.renderer.run();
 
 };

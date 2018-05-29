@@ -9,6 +9,8 @@ import Renderer from './World/Renderer.js';
 // functions 
 import __world from './World/world.js';
 import __render from './World/render.js';
+import __play from './World/play.js';
+import __pause from './World/pause.js';
 
 // methods
 import __importObjects from './World/importObjects.js';
@@ -19,6 +21,8 @@ import __exportObjects from './World/exportObjects.js';
 // namespace tree
 const ns = {
   render: __render,
+  play: __play,
+  pause: __pause,
   world: __world,
 };
 
