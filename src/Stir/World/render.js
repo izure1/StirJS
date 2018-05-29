@@ -8,7 +8,7 @@ import fragmentShaderSource from '../WebGL/shaderSource/fragment.c';
 import {
   createShader,
   createProgram
-} from './shader.js';
+} from './Renderer/Shader.js';
 
 
 /**
@@ -31,12 +31,11 @@ function getCanvas(q) {
 
 }
 
-export default function init(o = {}) {
+export default function render(canvas, f = function () {}, o = {}) {
 
-  let canvas;
   let gl;
 
-  canvas = getCanvas(o.canvas);
+  canvas = getCanvas(canvas);
 
   if (!canvas) {
     throw 'The canvas not exists.';
@@ -47,6 +46,8 @@ export default function init(o = {}) {
   if (!gl) {
     throw `Your browser doesn't support Stir.js`;
   }
+
+
 
   // Create shader program
 
@@ -81,8 +82,12 @@ export default function init(o = {}) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-  // run deltaTimer run
-  this.deltaTimer.init();
-  this.gl = gl;
+
+  // init world renderer
+  this.renderer.gl = gl;
+  this.renderer.world = this;
+  this.renderer.update = f.bind(this.renderer);
+
+  this.renderer.run();
 
 };

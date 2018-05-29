@@ -4,6 +4,7 @@ import StirObjectSession from './StirObjectSession.js';
 
 import DEFAULT_STYLE from './Object/var/DEFAULT_STYLE.js';
 import DEFAULT_ATTRIBUTE from './Object/var/DEFAULT_ATTRIBUTE.js';
+import DEFAULT_EVENT from './Object/var/DEFAULT_EVENT.js';
 
 import INIT_STYLE from './Object/var/INIT_STYLE.js';
 import INIT_ATTRIBUTE from './Object/var/INIT_ATTRIBUTE.js';
@@ -25,17 +26,32 @@ class StirObject extends StirObjectSession {
     super(t.name, [], t.__system__.world);
 
     delete this.context;
-    this.__initAttribute(o);
+    delete this.__system__.world;
+
+    this.__initSystemAttribute();
+    this.__initCommonAttribute(o);
     this.__initFromType(this.type);
 
   }
 
 }
 
-setHiddenContext.call(StirObject.prototype, '__initAttribute', function (a = {}, s = {}) {
+setHiddenContext.call(StirObject.prototype, '__initSystemAttribute', function () {
+
+  setHiddenContext.call(this, '__origin__', {});
+
+  setHiddenContext.call(this.__system__, 'events', {});
+
+  for (const e of DEFAULT_EVENT) {
+    setHiddenContext.call(this.__system__.events, e, []);
+  }
+
+});
+
+setHiddenContext.call(StirObject.prototype, '__initCommonAttribute', function (a = {}, s = {}) {
 
   Object.assign(this, DEFAULT_ATTRIBUTE, a);
-  
+
   this.__origin__.style = Object.assign({}, DEFAULT_STYLE, s);
 
   setHiddenContext.call(this, 'context', getContext([this]));

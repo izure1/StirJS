@@ -2,20 +2,24 @@
 
 // manager
 import Manager from './World/Manager.js';
-import DeltaTimer from './World/DeltaTimer.js';
+import Renderer from './World/Renderer.js';
 
 
 
 // functions 
-import __init from './World/init.js';
 import __world from './World/world.js';
+import __render from './World/render.js';
+
+// methods
+import __importObjects from './World/importObjects.js';
+import __exportObjects from './World/exportObjects.js';
 
 
 
 // namespace tree
 const ns = {
-  init: __init,
-  world: __world
+  render: __render,
+  world: __world,
 };
 
 
@@ -55,8 +59,7 @@ function World() {
 
   this.objects = new Map();
   this.manager = new Manager(this);
-  this.deltaTimer = new DeltaTimer();
-  this.gl = null;
+  this.renderer = new Renderer();
 
   /*
    *  검색결과를 알려줍니다.
@@ -73,6 +76,9 @@ function World() {
   return f;
 
 }
+
+World.prototype.importObjects = __importObjects;
+World.prototype.exportObjects = __exportObjects;
 
 
 export default World;

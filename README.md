@@ -1,3 +1,3 @@
 # StirJS
 
-Easy WebGL game engine for javasScript
+Easy WebGL game engine for JavaScript.
