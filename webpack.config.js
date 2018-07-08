@@ -3,16 +3,17 @@
 const path = require('path');
 const glob = require('glob');
 
+// external modules
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
+// entries
 const entry_stir = glob.sync('./src/Stir/**/*.js');
-const entry_box2d = glob.sync('./src/external/box2d/**/*.js');
 
+// set webpack
 module.exports = {
   mode: 'development',
   entry: {
-    'Stir': entry_stir,
-    //'box2d': entry_box2d
+    'Stir': entry_stir
   },
   output: {
     path: path.join(__dirname, 'dist'),

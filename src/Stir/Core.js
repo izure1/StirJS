@@ -19,6 +19,7 @@ import StirObjectSession from './StirObjectSession.js';
  *  p = Property, Properties
  *  v = Value
  *  r = Return, Result
+ *  x = proXy
  * 
  */
 

@@ -1,18 +1,22 @@
 'use strict';
 
+import {
+  setHiddenContext
+} from './Utils/context.js';
+
 // manager
 import Manager from './World/Manager.js';
 import Renderer from './World/Renderer.js';
-
-
+import SettingManager from './World/SettingManager.js';
 
 // functions 
 import __world from './World/world.js';
 import __render from './World/render.js';
 import __play from './World/play.js';
 import __pause from './World/pause.js';
-
-// methods
+import __instanceof from './World/instanceof.js';
+import __ready from './World/ready.js';
+import __box2d from './World/box2d.js';
 import __importObjects from './World/importObjects.js';
 import __exportObjects from './World/exportObjects.js';
 
@@ -24,6 +28,11 @@ const ns = {
   play: __play,
   pause: __pause,
   world: __world,
+  instanceof: __instanceof,
+  ready: __ready,
+  box2d: __box2d,
+  importObjects: __importObjects,
+  exportObjects: __exportObjects,
 };
 
 
@@ -45,7 +54,7 @@ function registRecursiver(ns, t, W) {
 
     } else {
 
-      t[p] = {};
+      t[p] = ({}).bind(W);
       registRecursiver(ns[p], t[p], W);
 
     }
@@ -64,6 +73,16 @@ function World() {
   this.objects = new Map();
   this.manager = new Manager(this);
   this.renderer = new Renderer();
+  this.setting = new SettingManager();
+  this.box2d = null;
+  this.camera = null;
+
+  this.f = u => this.manager.getObjects(u);
+
+
+  setHiddenContext.call(this, '__system__', {});
+  setHiddenContext.call(this.__system__, 'readyCallbacks', []);
+
 
   /*
    *  검색결과를 알려줍니다.
@@ -71,18 +90,10 @@ function World() {
    * 
    */
 
-
-  let f = u => {
-    return this.manager.getObjects(u);
-  };
-
-  registRecursiver(ns, f, this);
-  return f;
+  registRecursiver(ns, this.f, this);
+  return this.f;
 
 }
-
-World.prototype.importObjects = __importObjects;
-World.prototype.exportObjects = __exportObjects;
 
 
 export default World;

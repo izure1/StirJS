@@ -7,15 +7,12 @@
  */
 export default function notClass(c) {
 
-  let r;
-
-  r = [];
   this.each(function () {
 
     if (!this.hasClass(c)) r.push(this);
 
   });
 
-  return new window.STIR.classes.StirObjectSession(this.name, r, this.__system__.world);
+  return true;
 
 };

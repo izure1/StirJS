@@ -7,6 +7,7 @@ function DeltaTimer() {
   this.start = null;
   this.before = null;
   this.current = null;
+  this.paused = false;
 
 }
 

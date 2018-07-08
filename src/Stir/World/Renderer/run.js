@@ -1,18 +1,20 @@
 'use strict';
 
-export default function run() {
+export default function run(a) {
 
-  if (this.paused) {
-    return;
+  let tt = this.deltaTimer.update();
+
+  if (!this.paused) {
+
+    this.animation.update(tt);
+
+    // run user custom function
+    this.f();
+    this.updateMatrix();
+    this.updateAnimate();
+    this.updateView();
+
   }
-
-  // update timer
-  this.deltaTimer.update();
-
-  // run user custom function
-  this.f();
-  this.updateAnimate();
-  this.updateView();
 
   // repeat tick
   window.requestAnimationFrame(this.run.bind(this));

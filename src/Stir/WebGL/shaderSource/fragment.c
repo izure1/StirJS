@@ -5,9 +5,9 @@
 precision mediump float;
  
 // 프래그먼트 쉐이더(fragment shader)에서 출력을 선언 해야합니다.
+in vec4 v_color;
 out vec4 outColor;
  
 void main() {
-  // 붉은-보라색으로 출력하게 설정합니다.
-  outColor = vec4(1, 0, 0.5, 1);
+  outColor = v_color;
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <script src="../dist/Stir.js"></script>
+  <script src="../dist/Box2D_v2.3.1_min.js"></script>
+  <script>
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+  <style type="text/css">
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="test" width="800" height="450"></canvas>
+  <script>
+    stir.render(test).ready(function () {
+
+      let rx, ry, rz;
+      let x, y, z, n;
+
+      rx = 200;
+      ry = 200;
+      rz = 200;
+
+      for (let i = 0; i < 100; i++) {
+
+        x = getRandomInt(-rx, rx);
+        y = getRandomInt(-ry, ry);
+        z = getRandomInt(100, rz);
+
+        stir(`star${i}`).create({
+          type: 'circle'
+        }).css({
+          left: x,
+          bottom: y,
+          perspective: z,
+          color: `rgb(${getRandomInt(0, 255)}, ${getRandomInt(0, 255)}, ${getRandomInt(0, 255)})`
+        }).addClass('star');
+
+      }
+
+    });
+  </script>
+</body>
+
+</html>

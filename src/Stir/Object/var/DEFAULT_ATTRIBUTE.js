@@ -1,6 +1,5 @@
 export default {
 
-  type: null,
   src: null,
   loop: null,
   static: false,
@@ -9,5 +8,6 @@ export default {
   className: '',
   text: '',
   scene: 'main',
+  parentNode: null
 
 };

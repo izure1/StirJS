@@ -16,6 +16,6 @@ export default function findClass(c) {
 
   });
 
-  return new window.STIR.classes.StirObjectSession(this.name, r, this.world);
+  return new window.STIR.classes.StirObjectSession(this.name, r, this.__system__.world);
 
 };

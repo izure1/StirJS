@@ -37,7 +37,7 @@ export default function render(canvas, f = function () {}, o = {}) {
     throw 'You already set render function.';
   }
 
-  
+
   let gl;
 
   canvas = getCanvas(canvas);
@@ -72,27 +72,26 @@ export default function render(canvas, f = function () {}, o = {}) {
     throw 'Something wrong happened when initing.';
   }
 
-  let positionBuffer;
-  let positions;
-  let positionAttributeLocation;
+  gl.useProgram(program);
+  gl.enable(gl.DEPTH_TEST);
 
-  positionAttributeLocation = gl.getAttribLocation(program, "a_position");
-  positionBuffer = gl.createBuffer();
-  positions = [
-    0, 0,
-    0, 0.5,
-    0.7, 0,
-  ];
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
+  this.renderer.gl_vertexBuffer = gl.getAttribLocation(program, 'a_position');
+  this.renderer.gl_fragmentBuffer = gl.getAttribLocation(program, 'a_color');
+  this.renderer.gl_pMatrixBuffer = gl.getUniformLocation(program, 'u_pMatrix');
+  this.renderer.gl_vMatrixBuffer = gl.getUniformLocation(program, 'u_vMatrix');
+  this.renderer.gl_vTranslateBuffer = gl.getUniformLocation(program, 'u_vTranslate');
+  this.renderer.gl_vRotateBuffer = gl.getUniformLocation(program, 'u_vRotate');
+  this.renderer.gl_program = program;
+  this.renderer.canvas = canvas;
 
   // init world renderer
   this.renderer.gl = gl;
   this.renderer.world = this;
 
-  this.renderer.setUpdate(f);
+  this.renderer.init(f);
   this.renderer.run();
+
+  return this.f;
 
 };
